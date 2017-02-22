@@ -17,8 +17,6 @@ soup = BeautifulSoup(r.text, "html.parser")
 
 
 for story_heading in soup.find_all('h2',class_="story-heading", limit=10):
-		# if story_heading.find_all(class_="icon"):
-		# 	continue
 		if story_heading.a:
 			print(story_heading.a.text.replace("\n", " ").strip())
 
