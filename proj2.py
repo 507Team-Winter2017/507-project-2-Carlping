@@ -14,11 +14,16 @@ base_url = 'http://www.nytimes.com'
 r = requests.get(base_url)
 soup = BeautifulSoup(r.text, "html.parser")
 
-for story_heading in soup.find_all(class_="story-heading", limit=10): 
-    if story_heading.a: 
-        print(story_heading.a.text.replace("\n", " ").strip())
-    else: 
-        print(story_heading.contents[0].strip()) 
+
+
+for story_heading in soup.find_all('h2',class_="story-heading", limit=10):
+		# if story_heading.find_all(class_="icon"):
+		# 	continue
+		if story_heading.a:
+			print(story_heading.a.text.replace("\n", " ").strip())
+
+		else: 
+			print(story_heading.contents[0].strip()) 
 	
 
 ### Problem 2 ####
@@ -67,7 +72,7 @@ count=1
 for i in range(6):
 	url = "https://www.si.umich.edu/directory?field_person_firstname_value=&field_person_lastname_value=&rid=4&page={}".format(i)
 
-	r = urllib.request.Request(url,headers={'User-Agent': 'Mozilla/5.0'})
+	r = urllib.request.Request(url, None, {'User-Agent': 'SI_CLASS'})
 	html = urllib.request.urlopen(r, context=ctx).read()
 	soup = BeautifulSoup(html, 'html.parser')
 
@@ -80,7 +85,7 @@ for i in range(6):
 
 	for each in contact_link:
 		url='https://www.si.umich.edu/'+each
-		r = urllib.request.Request(url,headers={'User-Agent': 'Mozilla/5.0'})
+		r = urllib.request.Request(url, None, {'User-Agent': 'SI_CLASS'})
 		htmll = urllib.request.urlopen(r, context=ctx).read()
 	
 		soup1 = BeautifulSoup(htmll, 'html.parser')
